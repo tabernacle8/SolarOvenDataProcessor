@@ -7,10 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * @author Carter Kosturos
+ * 
+ * A simple java applet to retrieve CSV data from a file
+ * 
+ * @version 1.0.0
+ */
 public class dataImporter {
 
-    public static List<Integer> readData() throws IOException { 
+    public static List<Double> readData() throws IOException { 
 
         String file = "example_data.csv";
         List<Double> content = new ArrayList<>();

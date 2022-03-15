@@ -155,8 +155,7 @@ public class GraphPanel extends JPanel {
         return scores;
     }
     
-    private static void createAndShowGui() {
-        List<Double> scores = new ArrayList<>();
+    static void createAndShowGui(List<Double> scores) {
         scores.add(1.0);
         scores.add(2.0);
         scores.add(3.0);
