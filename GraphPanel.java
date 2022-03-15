@@ -14,14 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
- *
  * @author "Hovercraft Full of Eels", "Rodrigo Azevedo"
+ * @apiNote This code was retrieved from github and is usable under a common license (MIT)
+ * @category Graphing Utility (Offsite)
  *
  * This is an improved version of Hovercraft Full of Eels (https://stackoverflow.com/users/522444/hovercraft-full-of-eels)
  * answer on StackOverflow: https://stackoverflow.com/a/8693635/753012
  *
  * GitHub user @maritaria has made some performance improvements which can be found in the comment section of this Gist.
  */
+
 public class GraphPanel extends JPanel {
     private int width = 800;
     private int height = 400;
@@ -122,6 +124,8 @@ public class GraphPanel extends JPanel {
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
         }
+
+        
     }
 
 //    @Override
@@ -156,24 +160,14 @@ public class GraphPanel extends JPanel {
     }
     
     static void createAndShowGui(List<Double> scores) {
-        scores.add(1.0);
-        scores.add(2.0);
-        scores.add(3.0);
+
         GraphPanel mainPanel = new GraphPanel(scores);
         mainPanel.setPreferredSize(new Dimension(800, 600));
-        JFrame frame = new JFrame("DrawGraph");
+        JFrame frame = new JFrame("Graphing Panel :)");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
-    public static void main(String[] args) {
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
-            createAndShowGui();
-         }
-      });
-   }
 }

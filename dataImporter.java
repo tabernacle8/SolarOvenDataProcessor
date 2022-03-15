@@ -16,9 +16,13 @@ import java.util.Scanner;
  */
 public class dataImporter {
 
-    public static List<Double> readData() throws IOException { 
+    /**
+     * Get temp data from csv file
+     * @return
+     * @throws IOException
+     */
+    public static List<Double> readData(String file) throws IOException { 
 
-        String file = "example_data.csv";
         List<Double> content = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = "";
@@ -38,5 +42,37 @@ public class dataImporter {
         }
         
         return content;
+    }
+
+    public static List<Double> getTimes(String file) throws IOException { 
+
+        List<Double> content = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                
+                if(line.startsWith("#")) {
+                    continue;
+                }
+
+                //TODO: Make work with non second intervals
+                content.add(Double.parseDouble(line.split(",")[0]));
+            }
+            
+        } catch (FileNotFoundException e) {
+          throw new IOException("File not found");
+        }
+        
+        return content;
+    }
+
+    public static double[] convertToPrimitiveList(List<Double> originalList){
+        double[] formed = new double[originalList.size()];
+        for (int i = 0; i < formed.length; i++) {
+            formed[i] = originalList.get(i).doubleValue();
+        }
+
+        return formed;
     }
 }
