@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  * @author "Hovercraft Full of Eels", "Rodrigo Azevedo"
@@ -25,8 +24,6 @@ import javax.swing.SwingUtilities;
  */
 
 public class GraphPanel extends JPanel {
-    private int width = 800;
-    private int height = 400;
     private int padding = 25;
     private int labelPadding = 25;
     private Color lineColor = new Color(44, 102, 230, 180);
