@@ -14,8 +14,6 @@ public class mainRunner {
 
     public static final String DATAFILE = "example_data.csv";
 
-
-
     public static void main(String[] args) throws IOException {
 
         //Init data
