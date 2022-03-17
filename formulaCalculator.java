@@ -17,12 +17,9 @@ public class formulaCalculator {
      * @return Average Temp
      */
     public static String calculateAverageTemp(List<Double> tempData) {
-        double sum = 0;
-        for (Double data : tempData) {
-            sum += data;
-        }
-        double average = sum / tempData.size();
-        return("Average temperature: " + average);
+        return "TODO";
+        //TODO: Emily please fix
+        
     }
 
     /**
@@ -31,13 +28,8 @@ public class formulaCalculator {
      * @return Max Temp
      */
     public static String calculateMaxTemp(List<Double> tempData) {
-        double max = tempData.get(0);
-        for (Double data : tempData) {
-            if (data > max) {
-                max = data;
-            }
-        }
-        return("Max temperature: " + max);
+        return "TODO";
+        //TODO: Emily please fix
     }
 
     /**
@@ -46,13 +38,8 @@ public class formulaCalculator {
      * @return Min Temp
      */
     public static String calculateMinTemp(List<Double> tempData) {
-        double min = tempData.get(0);
-        for (Double data : tempData) {
-            if (data < min) {
-                min = data;
-            }
-        }
-        return("Min temperature: " + min);
+        return "TODO";
+        //TODO: Emily please fix
     }
 
     
