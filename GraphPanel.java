@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel {
     private int padding = 25;
-    private int labelPadding = 70;
+    private int labelPadding = 75;
     private Color lineColor = new Color(44, 102, 230, 180);
     private Color pointColor = new Color(100, 100, 100, 180);
     private Color gridColor = new Color(200, 200, 200, 200);
@@ -43,6 +43,7 @@ public class GraphPanel extends JPanel {
         System.out.println("========================\n\nWARNING, PROJECT RAN FROM WRONG CLASS FILE (Graph Pannel). Debug mode is on!\n\n========================");
         //Run mainRunner
         try {
+            //Not a safe way to do this! Run from the oringinal mainRunner if possible!
             mainRunner.main(args);
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,10 +114,11 @@ public class GraphPanel extends JPanel {
         }
 
         //Add graph x label
-        g2.drawString("Time", getWidth()/2 - 30, getHeight() - 10);
+        g2.drawString("Time Recorded (Seconds)", getWidth()/2 - 30, getHeight() - 10);
 
-        //Add graph y label
-        g2.drawString("Score", 10, getHeight()/2);
+        //Add graph y label. Add Temp and data on two lines
+        g2.drawString("Temp", 10, getHeight()/2 - 30);
+        g2.drawString("Data (C)", 10, getHeight()/2);
 
 
         // create x and y axes 
