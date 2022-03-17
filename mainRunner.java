@@ -14,6 +14,10 @@ public class mainRunner {
 
     public static final String DATAFILE = "example_data.csv";
 
+    //Attempt to run a pretty meh linear regression calculation and add it to the graph
+    //TODO: Somebody tell me how the heck linear regression works
+    public static final boolean tryLinearRegression = true;
+
     public static void main(String[] args) throws IOException {
 
         //Init data
@@ -40,7 +44,7 @@ public class mainRunner {
         //TODO: Add linear regression line to graph
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                GraphPanel.createAndShowGui(tempData);
+                GraphPanel.createAndShowGui(tempData, timeData, tryLinearRegression);
             }
         });
 

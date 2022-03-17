@@ -37,7 +37,8 @@ public class GraphPanel extends JPanel {
     private int pointWidth = 4;
     private int numberYDivisions = 10;
     private List<Double> tempData;
-    private List<Double> times;
+    private List<Double> timeData;
+    private boolean linearRegression = false;
 
     public static void main(String[] args){
         //Warning you are in debug mode
@@ -51,10 +52,22 @@ public class GraphPanel extends JPanel {
         }
     }
 
-    public GraphPanel(List<Double> scores) {
+    public GraphPanel(List<Double> scores, List<Double> times, boolean linearRegression) {
         this.tempData = scores;
+        this.timeData = times;
+        this.linearRegression = linearRegression;
     }
 
+    public Point createPointFromRaw(int x, int y){
+
+        double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (tempData.size() - 1);
+        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
+
+
+        int x1 = (int) (tempData.size()-1 * xScale + padding + labelPadding);
+        int y1 = (int) ((getMaxScore()-y) * yScale + padding);
+        return new Point(x1, y1);
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -121,6 +134,27 @@ public class GraphPanel extends JPanel {
         g2.drawString("Temp", 10, getHeight()/2 - 30);
         g2.drawString("Data (C)", 10, getHeight()/2);
 
+        if(linearRegression){
+        //Find line of best fit
+        double[] tempDataFormed = dataImporter.convertToPrimitiveList(tempData);
+        double[] timeDataFormed = dataImporter.convertToPrimitiveList(timeData);
+        LinearRegression regCalc = new LinearRegression(tempDataFormed, timeDataFormed);
+        System.out.println(regCalc.predict(tempData.get(tempData.size()-1)));
+        
+
+        //Add line of best fit to graph
+        //Change color to red and to dashed line
+        g2.setStroke(GRAPH_STROKE);
+        g2.setColor(Color.RED);
+        Point p1 = new Point(graphPoints.get(graphPoints.size()-1).x, graphPoints.get(graphPoints.size()-1).y);
+        Point p2 = createPointFromRaw((timeData.get(tempData.size()-1)).intValue(), padding+(int)regCalc.predict(tempData.get(tempData.size()-1)));
+        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+
+        //Reset color back to black
+        g2.setColor(Color.BLACK);
+        }
+        
+
 
         // create x and y axes 
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
@@ -181,9 +215,9 @@ public class GraphPanel extends JPanel {
         return tempData;
     }
     
-    static void createAndShowGui(List<Double> scores) {
+    static void createAndShowGui(List<Double> scores, List<Double> timeData, boolean linearRegression) {
 
-        GraphPanel mainPanel = new GraphPanel(scores);
+        GraphPanel mainPanel = new GraphPanel(scores, timeData, linearRegression);
         mainPanel.setPreferredSize(new Dimension(800, 600));
         JFrame frame = new JFrame("Graphing Panel :)");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
