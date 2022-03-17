@@ -15,8 +15,9 @@ public class mainRunner {
     public static final String DATAFILE = "example_data.csv";
 
     //Attempt to run a pretty meh linear regression calculation and add it to the graph
+    //For now, you should probably leave this off
     //TODO: Somebody tell me how the heck linear regression works
-    public static final boolean tryLinearRegression = true;
+    public static final boolean tryLinearRegression = false;
 
     public static void main(String[] args) throws IOException {
 
