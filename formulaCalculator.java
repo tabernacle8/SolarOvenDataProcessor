@@ -4,6 +4,7 @@ public class formulaCalculator {
     
 /**
  * @author Carter Kosturos
+ * @author Emily Burr
  * 
  * A supplementary file to run calculations on acquired data
  * 
