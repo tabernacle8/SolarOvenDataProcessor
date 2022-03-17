@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -14,6 +15,9 @@ import javax.swing.JPanel;
 
 /**
  * @author "Hovercraft Full of Eels", "Rodrigo Azevedo"
+ * @author Carter Kosturos - The original file has been hevaily modified to fit the needs of this project
+ * 
+ * 
  * @apiNote This code was retrieved from github and is usable under a common license (MIT)
  * @category Graphing Utility (Offsite)
  *
@@ -25,7 +29,7 @@ import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel {
     private int padding = 25;
-    private int labelPadding = 25;
+    private int labelPadding = 70;
     private Color lineColor = new Color(44, 102, 230, 180);
     private Color pointColor = new Color(100, 100, 100, 180);
     private Color gridColor = new Color(200, 200, 200, 200);
@@ -33,6 +37,17 @@ public class GraphPanel extends JPanel {
     private int pointWidth = 4;
     private int numberYDivisions = 10;
     private List<Double> scores;
+
+    public static void main(String[] args){
+        //Warning you are in debug mode
+        System.out.println("========================\n\nWARNING, PROJECT RAN FROM WRONG CLASS FILE (Graph Pannel). Debug mode is on!\n\n========================");
+        //Run mainRunner
+        try {
+            mainRunner.main(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public GraphPanel(List<Double> scores) {
         this.scores = scores;
@@ -96,6 +111,13 @@ public class GraphPanel extends JPanel {
                 g2.drawLine(x0, y0, x1, y1);
             }
         }
+
+        //Add graph x label
+        g2.drawString("Time", getWidth()/2 - 30, getHeight() - 10);
+
+        //Add graph y label
+        g2.drawString("Score", 10, getHeight()/2);
+
 
         // create x and y axes 
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
