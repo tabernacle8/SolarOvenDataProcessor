@@ -21,26 +21,26 @@ public class dataImporter {
      * @return List of doubles
      * @throws IOException
      */
-    public static List<Double> readData(String file) throws IOException { 
+    public static List < Double > readData(String file) throws IOException {
 
-        List<Double> content = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+        List < Double > content = new ArrayList < > ();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = "";
 
             while ((line = br.readLine()) != null) {
-                
-                if(line.startsWith("#")) {
+
+                if (line.startsWith("#")) {
                     continue;
                 }
 
                 //TODO: Make work with non second intervals
                 content.add(Double.parseDouble(line.split(",")[1]));
             }
-            
+
         } catch (FileNotFoundException e) {
-          throw new IOException("File not found");
+            throw new IOException("File not found");
         }
-        
+
         return content;
     }
 
@@ -49,29 +49,27 @@ public class dataImporter {
      * @return Map of time and temp
      * @throws IOException
      */
-    public static  Map<String, Double> readDataFormatted(String file) throws IOException { 
+    public static Map < String, Double > readDataFormatted(String file) throws IOException {
 
-        Map<String, Double> content = new HashMap<String, Double>();
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+        Map < String, Double > content = new HashMap < String, Double > ();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = "";
 
             while ((line = br.readLine()) != null) {
-                
-                if(line.startsWith("$")) {
+
+                if (line.startsWith("$")) {
                     content.put(line.split(",")[0].replace("$", ""), Double.parseDouble(line.split(",")[1]));
-                }
-                else if(line.startsWith("#")) {
+                } else if (line.startsWith("#")) {
                     continue;
-                }
-                else{
+                } else {
                     continue;
                 }
             }
-            
+
         } catch (FileNotFoundException e) {
-          throw new IOException("File not found");
+            throw new IOException("File not found");
         }
-        
+
         return content;
     }
 
@@ -80,30 +78,30 @@ public class dataImporter {
      * @return Double list
      * @throws IOException
      */
-    public static List<Double> getTimes(String file) throws IOException { 
+    public static List < Double > getTimes(String file) throws IOException {
 
-        List<Double> content = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+        List < Double > content = new ArrayList < > ();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = "";
 
             while ((line = br.readLine()) != null) {
-                
-                if(line.startsWith("#")) {
+
+                if (line.startsWith("#")) {
                     continue;
                 }
 
                 //TODO: Make work with non second intervals
                 content.add(Double.parseDouble(line.split(",")[0]));
             }
-            
+
         } catch (FileNotFoundException e) {
-          throw new IOException("File not found");
+            throw new IOException("File not found");
         }
-        
+
         return content;
     }
 
-    public static double[] convertToPrimitiveList(List<Double> originalList){
+    public static double[] convertToPrimitiveList(List < Double > originalList) {
         double[] formed = new double[originalList.size()];
         for (int i = 0; i < formed.length; i++) {
             formed[i] = originalList.get(i).doubleValue();

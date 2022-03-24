@@ -36,12 +36,12 @@ public class GraphPanel extends JPanel {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
     private int numberYDivisions = 10;
-    private List<Double> tempData;
-    private List<Double> timeData;
+    private List < Double > tempData;
+    private List < Double > timeData;
     private boolean linearRegression = false;
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //Warning you are in debug mode
         System.out.println("========================\n\nWARNING, PROJECT RAN FROM WRONG CLASS FILE (Graph Pannel). Debug mode is on!\n\n========================");
         //Run mainRunner
@@ -59,7 +59,7 @@ public class GraphPanel extends JPanel {
      * @param timeData
      * @param linearRegression
      */
-    public GraphPanel(List<Double> scores, List<Double> times, boolean linearRegression) {
+    public GraphPanel(List < Double > scores, List < Double > times, boolean linearRegression) {
         this.tempData = scores;
         this.timeData = times;
         this.linearRegression = linearRegression;
@@ -70,14 +70,14 @@ public class GraphPanel extends JPanel {
      * @param tempData
      * @param timeData
      */
-    public Point createPointFromRaw(int x, int y){
+    public Point createPointFromRaw(int x, int y) {
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (tempData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 
 
-        int x1 = (int) (tempData.size()-1 * xScale + padding + labelPadding);
-        int y1 = (int) ((getMaxScore()-y) * yScale + padding);
+        int x1 = (int)(tempData.size() - 1 * xScale + padding + labelPadding);
+        int y1 = (int)((getMaxScore() - y) * yScale + padding);
         return new Point(x1, y1);
     }
 
@@ -95,10 +95,10 @@ public class GraphPanel extends JPanel {
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (tempData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 
-        List<Point> graphPoints = new ArrayList<>();
+        List < Point > graphPoints = new ArrayList < > ();
         for (int i = 0; i < tempData.size(); i++) {
-            int x1 = (int) (i * xScale + padding + labelPadding);
-            int y1 = (int) ((getMaxScore() - tempData.get(i)) * yScale + padding);
+            int x1 = (int)(i * xScale + padding + labelPadding);
+            int y1 = (int)((getMaxScore() - tempData.get(i)) * yScale + padding);
             graphPoints.add(new Point(x1, y1));
         }
 
@@ -117,7 +117,7 @@ public class GraphPanel extends JPanel {
                 g2.setColor(gridColor);
                 g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y1);
                 g2.setColor(Color.BLACK);
-                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+                String yLabel = ((int)((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(yLabel);
                 g2.drawString(yLabel, x0 - labelWidth - 5, y0 + (metrics.getHeight() / 2) - 3);
@@ -132,11 +132,11 @@ public class GraphPanel extends JPanel {
                 int x1 = x0;
                 int y0 = getHeight() - padding - labelPadding;
                 int y1 = y0 - pointWidth;
-                if ((i % ((int) ((tempData.size() / 20.0)) + 1)) == 0) {
+                if ((i % ((int)((tempData.size() / 20.0)) + 1)) == 0) {
                     g2.setColor(gridColor);
                     g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
                     g2.setColor(Color.BLACK);
-                    String xLabel = i+1 + "";
+                    String xLabel = i + 1 + "";
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
                     g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
@@ -146,32 +146,32 @@ public class GraphPanel extends JPanel {
         }
 
         //Add graph x label
-        g2.drawString("Time Recorded (Seconds)", getWidth()/2 - 30, getHeight() - 10);
+        g2.drawString("Time Recorded (Seconds)", getWidth() / 2 - 30, getHeight() - 10);
 
         //Add graph y label. Add Temp and data on two lines
-        g2.drawString("Temp", 10, getHeight()/2 - 30);
-        g2.drawString("Data (C)", 10, getHeight()/2);
+        g2.drawString("Temp", 10, getHeight() / 2 - 30);
+        g2.drawString("Data (C)", 10, getHeight() / 2);
 
-        if(linearRegression){
-        //Find line of best fit
-        double[] tempDataFormed = dataImporter.convertToPrimitiveList(tempData);
-        double[] timeDataFormed = dataImporter.convertToPrimitiveList(timeData);
-        LinearRegression regCalc = new LinearRegression(tempDataFormed, timeDataFormed);
-        System.out.println(regCalc.predict(tempData.get(tempData.size()-1)));
-        
+        if (linearRegression) {
+            //Find line of best fit
+            double[] tempDataFormed = dataImporter.convertToPrimitiveList(tempData);
+            double[] timeDataFormed = dataImporter.convertToPrimitiveList(timeData);
+            LinearRegression regCalc = new LinearRegression(tempDataFormed, timeDataFormed);
+            System.out.println(regCalc.predict(tempData.get(tempData.size() - 1)));
 
-        //Add line of best fit to graph
-        //Change color to red and to dashed line
-        g2.setStroke(GRAPH_STROKE);
-        g2.setColor(Color.RED);
-        Point p1 = new Point(graphPoints.get(graphPoints.size()-1).x, graphPoints.get(graphPoints.size()-1).y);
-        Point p2 = createPointFromRaw((timeData.get(tempData.size()-1)).intValue(), padding+(int)regCalc.predict(tempData.get(tempData.size()-1)));
-        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
 
-        //Reset color back to black
-        g2.setColor(Color.BLACK);
+            //Add line of best fit to graph
+            //Change color to red and to dashed line
+            g2.setStroke(GRAPH_STROKE);
+            g2.setColor(Color.RED);
+            Point p1 = new Point(graphPoints.get(graphPoints.size() - 1).x, graphPoints.get(graphPoints.size() - 1).y);
+            Point p2 = createPointFromRaw((timeData.get(tempData.size() - 1)).intValue(), padding + (int) regCalc.predict(tempData.get(tempData.size() - 1)));
+            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+
+            //Reset color back to black
+            g2.setColor(Color.BLACK);
         }
-        
+
 
 
         // create x and y axes 
@@ -199,7 +199,7 @@ public class GraphPanel extends JPanel {
             g2.fillOval(x, y, ovalW, ovalH);
         }
 
-        
+
     }
 
     /**
@@ -208,7 +208,7 @@ public class GraphPanel extends JPanel {
      */
     private double getMinScore() {
         double minScore = Double.MAX_VALUE;
-        for (Double score : tempData) {
+        for (Double score: tempData) {
             minScore = Math.min(minScore, score);
         }
         return minScore;
@@ -220,7 +220,7 @@ public class GraphPanel extends JPanel {
      */
     private double getMaxScore() {
         double maxScore = Double.MIN_VALUE;
-        for (Double score : tempData) {
+        for (Double score: tempData) {
             maxScore = Math.max(maxScore, score);
         }
         return maxScore;
@@ -230,7 +230,7 @@ public class GraphPanel extends JPanel {
      * Set data point
      * @param scores the data to set
      */
-    public void setScores(List<Double> scores) {
+    public void setScores(List < Double > scores) {
         this.tempData = scores;
         invalidate();
         this.repaint();
@@ -239,17 +239,17 @@ public class GraphPanel extends JPanel {
     /**
      * Scores getter method
      */
-    public List<Double> getScores() {
+    public List < Double > getScores() {
         return tempData;
     }
-    
+
     /**
      * Create and show gui, main driver code
      * @param scores the data to set
      * @param timeData the time data to set
      * @param linearRegression the linear regression information (Experimental)
      */
-    static void createAndShowGui(List<Double> scores, List<Double> timeData, boolean linearRegression) {
+    static void createAndShowGui(List < Double > scores, List < Double > timeData, boolean linearRegression) {
 
         GraphPanel mainPanel = new GraphPanel(scores, timeData, linearRegression);
         mainPanel.setPreferredSize(new Dimension(800, 600));

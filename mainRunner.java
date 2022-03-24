@@ -42,7 +42,7 @@ public class mainRunner {
         double[] tempDataFormed = dataImporter.convertToPrimitiveList(tempData);
         double[] timeDataFormed = dataImporter.convertToPrimitiveList(timeData);
         LinearRegression regCalc = new LinearRegression(tempDataFormed, timeDataFormed);
-        System.out.println("Linear Regression Data:"+"\n"+regCalc.toString());
+        System.out.println("Linear Regression Data:" + "\n" + regCalc.toString());
 
         //Graph data
         //TODO: Add linear regression line to graph
