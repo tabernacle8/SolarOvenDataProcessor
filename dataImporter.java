@@ -42,6 +42,33 @@ public class dataImporter {
         return content;
     }
 
+    public static List<String> readDataFormatted(String file) throws IOException { 
+
+        List<String> content = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                
+                if(line.startsWith("$")) {
+                   content.add(line.split(",")[1]);
+                }
+                else if(line.startsWith("#")) {
+                    continue;
+                }
+                else{
+                    //Throw exception
+                    throw new IOException("Malformed heeader! Expected a $/#, got: " + line);
+                }
+            }
+            
+        } catch (FileNotFoundException e) {
+          throw new IOException("File not found");
+        }
+        
+        return content;
+    }
+
     public static List<Double> getTimes(String file) throws IOException { 
 
         List<Double> content = new ArrayList<>();
