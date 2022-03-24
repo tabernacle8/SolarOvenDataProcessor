@@ -56,11 +56,16 @@ public class formulaCalculator {
         return String.format("Min temp: %.2f", min);
     }
 
+    /**
+     * Calculates efficnency of the solar oven based on dynamic data in efficiency_calculations.csv
+     * @param tempData
+     * @return Average Temp
+     */
     public static String calculateEfficiency(String sourceFile){
         try {
             Map<String, Double> formulaData = dataImporter.readDataFormatted(sourceFile);
             double energyOut = formulaData.get("density") * formulaData.get("volume") * formulaData.get("sHeatAir") * (formulaData.get("iTemp")-formulaData.get("aTemp"));
-            double energyIncident = formulaData.get("insolation") * formulaData.get("sunHours") * formulaData.get("testTime");
+            double energyIncident = formulaData.get("insolation") * formulaData.get("sunHours") * formulaData.get("testTime") * formulaData.get("surfaceArea");
 
             return String.format("Efficiency clculation: %.2f", energyOut/energyIncident);
 

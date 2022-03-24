@@ -18,7 +18,7 @@ public class dataImporter {
 
     /**
      * Get temp data from csv file
-     * @return
+     * @return List of doubles
      * @throws IOException
      */
     public static List<Double> readData(String file) throws IOException { 
@@ -44,6 +44,11 @@ public class dataImporter {
         return content;
     }
 
+    /**
+     * Get time data from csv file and transform into map
+     * @return Map of time and temp
+     * @throws IOException
+     */
     public static  Map<String, Double> readDataFormatted(String file) throws IOException { 
 
         Map<String, Double> content = new HashMap<String, Double>();
@@ -70,6 +75,11 @@ public class dataImporter {
         return content;
     }
 
+    /**
+     * Get time data from csv file and transform into map
+     * @return Double list
+     * @throws IOException
+     */
     public static List<Double> getTimes(String file) throws IOException { 
 
         List<Double> content = new ArrayList<>();

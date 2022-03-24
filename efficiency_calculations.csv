@@ -37,3 +37,6 @@ $testTime, 2
 #Specific heat of air
 $sHeatAir, 0.24
 
+#Surface area of heating pad
+$surfaceArea, 100
+

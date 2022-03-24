@@ -40,6 +40,7 @@ public class GraphPanel extends JPanel {
     private List<Double> timeData;
     private boolean linearRegression = false;
 
+
     public static void main(String[] args){
         //Warning you are in debug mode
         System.out.println("========================\n\nWARNING, PROJECT RAN FROM WRONG CLASS FILE (Graph Pannel). Debug mode is on!\n\n========================");
@@ -52,12 +53,23 @@ public class GraphPanel extends JPanel {
         }
     }
 
+    /**
+     * Graph pannel main helper method
+     * @param tempData
+     * @param timeData
+     * @param linearRegression
+     */
     public GraphPanel(List<Double> scores, List<Double> times, boolean linearRegression) {
         this.tempData = scores;
         this.timeData = times;
         this.linearRegression = linearRegression;
     }
 
+    /**
+     * Creates a point from raw x/y data
+     * @param tempData
+     * @param timeData
+     */
     public Point createPointFromRaw(int x, int y){
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (tempData.size() - 1);
@@ -68,6 +80,12 @@ public class GraphPanel extends JPanel {
         int y1 = (int) ((getMaxScore()-y) * yScale + padding);
         return new Point(x1, y1);
     }
+
+    /**
+     * Paints graph based on recieved data
+     * @param tempData
+     * @param timeData
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -184,11 +202,10 @@ public class GraphPanel extends JPanel {
         
     }
 
-//    @Override
-//    public Dimension getPreferredSize() {
-//        return new Dimension(width, height);
-//    }
-
+    /**
+     * Gets min score
+     * @return the current data
+     */
     private double getMinScore() {
         double minScore = Double.MAX_VALUE;
         for (Double score : tempData) {
@@ -197,6 +214,10 @@ public class GraphPanel extends JPanel {
         return minScore;
     }
 
+    /**
+     * Gets max score
+     * @return the current data
+     */
     private double getMaxScore() {
         double maxScore = Double.MIN_VALUE;
         for (Double score : tempData) {
@@ -205,16 +226,29 @@ public class GraphPanel extends JPanel {
         return maxScore;
     }
 
+    /**
+     * Set data point
+     * @param scores the data to set
+     */
     public void setScores(List<Double> scores) {
         this.tempData = scores;
         invalidate();
         this.repaint();
     }
 
+    /**
+     * Scores getter method
+     */
     public List<Double> getScores() {
         return tempData;
     }
     
+    /**
+     * Create and show gui, main driver code
+     * @param scores the data to set
+     * @param timeData the time data to set
+     * @param linearRegression the linear regression information (Experimental)
+     */
     static void createAndShowGui(List<Double> scores, List<Double> timeData, boolean linearRegression) {
 
         GraphPanel mainPanel = new GraphPanel(scores, timeData, linearRegression);
