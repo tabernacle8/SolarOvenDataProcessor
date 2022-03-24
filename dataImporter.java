@@ -3,7 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Carter Kosturos
@@ -42,23 +44,22 @@ public class dataImporter {
         return content;
     }
 
-    public static List<String> readDataFormatted(String file) throws IOException { 
+    public static  Map<String, Double> readDataFormatted(String file) throws IOException { 
 
-        List<String> content = new ArrayList<>();
+        Map<String, Double> content = new HashMap<String, Double>();
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = "";
 
             while ((line = br.readLine()) != null) {
                 
                 if(line.startsWith("$")) {
-                   content.add(line.split(",")[1]);
+                    content.put(line.split(",")[0].replace("$", ""), Double.parseDouble(line.split(",")[1]));
                 }
                 else if(line.startsWith("#")) {
                     continue;
                 }
                 else{
-                    //Throw exception
-                    throw new IOException("Malformed heeader! Expected a $/#, got: " + line);
+                    continue;
                 }
             }
             

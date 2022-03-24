@@ -1,0 +1,39 @@
+###########################################################################
+#                                                                         #
+#  This file contains information about the different measurments         #
+#  This is a smart csv file, which means that it reads data dynamically   #
+#  Data can be put anywhere, as long as the names match                   #
+#                                                                         #
+#  Variables start with $                                                 #
+#  Comments start with #                                                  #
+#  Format: $variableName, data (Java Double format)                       #
+#                                                                         #
+#  This CSV can dynamically transform ints into doubles                   #
+#                                                                         #
+# @Author Carter Kosturos                                                 #
+###########################################################################
+
+#Density
+$density, 0.075
+
+#Volume of air, ft^3
+$volume, 100
+
+#Interior temp, F
+$iTemp, 100
+
+#Ambient temp, F
+$aTemp, 60
+
+#Solar insolation (Google this per day) (kWh/m^2day)
+$insolation, 2.66
+
+#Number of sunlight hours per day
+$sunHours, 9
+
+#Time of test (hours)
+$testTime, 2
+
+#Specific heat of air
+$sHeatAir, 0.24
+

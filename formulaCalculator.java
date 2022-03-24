@@ -1,4 +1,7 @@
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class formulaCalculator {
     
@@ -20,7 +23,7 @@ public class formulaCalculator {
         for (Double temp : tempData) {
             sum += temp;
         }
-        return String.format("%.2f", sum / tempData.size());
+        return String.format("Average Temp: %.2f", sum / tempData.size());
     }
 
     /**
@@ -35,7 +38,7 @@ public class formulaCalculator {
                 max = temp;
             }
         }
-        return String.format("%.2f", max);
+        return String.format("Max temp: %.2f", max);
     }
 
     /**
@@ -50,7 +53,22 @@ public class formulaCalculator {
                 min = temp;
             }
         }
-        return String.format("%.2f", min);
+        return String.format("Min temp: %.2f", min);
+    }
+
+    public static String calculateEfficiency(String sourceFile){
+        try {
+            Map<String, Double> formulaData = dataImporter.readDataFormatted(sourceFile);
+            double energyOut = formulaData.get("density") * formulaData.get("volume") * formulaData.get("sHeatAir") * (formulaData.get("iTemp")-formulaData.get("aTemp"));
+            double energyIncident = formulaData.get("insolation") * formulaData.get("sunHours") * formulaData.get("testTime");
+
+            return String.format("Efficiency clculation: %.2f", energyOut/energyIncident);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Something failed uh oh";
+
     }
 
     

@@ -35,6 +35,9 @@ public class mainRunner {
         String minTemp = formulaCalculator.calculateMinTemp(tempData);
         System.out.println(minTemp);
 
+        String efficiency = formulaCalculator.calculateEfficiency("efficiency_calculations.csv");
+        System.out.println(efficiency);
+
         //Find line of best fit
         double[] tempDataFormed = dataImporter.convertToPrimitiveList(tempData);
         double[] timeDataFormed = dataImporter.convertToPrimitiveList(timeData);
