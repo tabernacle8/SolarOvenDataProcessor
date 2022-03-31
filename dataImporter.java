@@ -59,10 +59,10 @@ public class dataImporter {
 
                 if (line.startsWith("$")) {
                     content.put(line.split(",")[0].replace("$", ""), Double.parseDouble(line.split(",")[1]));
-                } else if (line.startsWith("#")) {
+                } else if (line.startsWith("#") || line.isEmpty()) {
                     continue;
                 } else {
-                    continue;
+                    throw new IOException("File not formatted correctly! Expected a command (#) or a new variable ($)\n\n" + "Issue parsing this line:\n"+line+"\n\n");
                 }
             }
 

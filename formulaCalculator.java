@@ -71,7 +71,9 @@ public class formulaCalculator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Something failed uh oh";
+        return "================================================================\n"+
+        "CRASH DETECTED! SOMEBODY MESSED UP SOMEWHERE. SEE ABOVE LINE FOR MORE INFO"+
+        "\n================================================================";
 
     }
 
